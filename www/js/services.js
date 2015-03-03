@@ -1,3 +1,46 @@
+angular.module('servicios',[]).
+
+    factory('Geolocalizacion',function($q){
+
+
+        return{
+
+            getPosicionActual:function(){
+
+                var deferred=$q.defer();
+
+                if(navigator.geolocation){
+
+                    navigator.geolocation.getCurrentPosition(
+
+                        function(pos){
+
+                            var miPosicion={
+                                latitud:pos.coords.latitude,
+                                longitud:pos.coords.longitude
+
+
+                            };
+                            deferred.resolve(miPosicion);
+                        },
+                        function (err) {
+
+                            deferred.reject(err);
+                        }
+                    );
+                }
+                else{
+
+                    deferred.reject({message:'No esta presente la geolocalización'});
+
+                }
+                return deferred.promise;
+            }
+        }
+    });
+
+
+/*
 angular.module('starter.services', [])
 
 .factory('Chats', function() {
@@ -49,9 +92,11 @@ angular.module('starter.services', [])
   }
 })
 
+*/
 /**
  * A simple example service that returns some data.
- */
+ *//*
+
 .factory('Friends', function() {
   // Might use a resource here that returns a JSON array
 
@@ -94,3 +139,4 @@ angular.module('starter.services', [])
     }
   }
 });
+*/
