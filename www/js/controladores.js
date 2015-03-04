@@ -1,5 +1,5 @@
-angular.module('controladores',[]).
-    controller('MapasController',function($scope,Geolocalizacion){
+angular.module('controladores',[])
+    .controller('MapasController',function($scope,Geolocalizacion){
 
         $scope.mapaCargado=function(map){
             $scope.map=map;
@@ -16,34 +16,106 @@ angular.module('controladores',[]).
                     alert(err.message);
                 })
         };
+    })
+
+
+.controller('LoginCtrl', function($scope,$ionicLoading,$ionicPopup,
+                                  $state,$ionicPlatform,Usuarios) {
+    $scope.usuario={};
+
+
+
+    $scope.iniciarSesion=function(){
+        $ionicLoading.show(
+            {
+                template:'Validando cuenta de usuario'
+
+            });
+
+        Usuarios.validarUsuario($scope.usuario).then(
+            function(res){
+                $ionicLoading.hide();
+                if(res.length>0) {
+                    localStorage.usuario = JSON.stringify(res[0]);
+                    /*$state.go("tab.blocs"); poner akí la pantalla de mapas*/
+                }
+                else{
+                    $ionicPopup.alert({
+                        template:'Credenciales incorrectas',
+                        title: '¡Error!'
+                    });
+                }
+            },
+            function(err){
+                $ionicLoading.hide();
+                $ionicPopup.alert({
+                    template:'Error al validar el usuario',
+                    title: '¡Error!'
+                });
+            });
+    };
+
+
+    $ionicPlatform.ready(function(){
+        // navegador kompatible kn localstorage
+        if(typeof(Storage) !== "undefined") {
+            //si tiene datos, los pasamos a la vista
+            if(localStorage.usuario){
+                $scope.usuario=JSON.parse(localStorage.usuario);
+                //iniciarSesion();
+            } else {
+                //sino lo llenamos
+                localStorage.setItem("usuario", $scope.usuario);
+            }
+
+        } else {
+            // Sorry! No Web Storage support..
+            alert("Su navegador no soporta localstorage");
+        }
     });
 
-
-/*angular.module('starter.controllers', [])
-
-.controller('DashCtrl', function($scope) {})
-
-.controller('ChatsCtrl', function($scope, Chats) {
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  }
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+
+.controller('RegistroCtrl', function($scope,$http,$state,
+                                     $ionicLoading,$ionicPopup) {
+    $scope.usuario={};
+    $scope.registro=function(){
+        var url="https://turismociudadgeo.azure-mobile.net/tables/usuarios";
+        $http.defaults.headers.common={
+            'X-ZUMO-APPLICATION':'xcbHUQtJLDiIWhdvACLUNdWAMeAgRo89',
+            'Access-Control-Allow-Origin':'*'
+        };
+
+        $ionicLoading.show(
+            {
+                template:'Creando cuenta de usuario'
+
+            }
+
+        );
+
+        $http.post(url,$scope.usuario).then(
+            function(res){
+                $ionicLoading.hide();
+
+                $ionicPopup.alert({
+                    template:'Usuario creado con exito',
+                    title: '¡Exito!'
+                });
+
+                $state.go("geoturimo.login");
+            }
+            ,
+            function(err){
+                $ionicLoading.hide();
+
+                $ionicPopup.alert({
+                    template:'Error al crear el usuario',
+                    title: '¡Error!'
+                });
+            }
+        );
+    }
 })
 
-.controller('FriendsCtrl', function($scope, Friends) {
-  $scope.friends = Friends.all();
-})
-
-.controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
-  $scope.friend = Friends.get($stateParams.friendId);
-})
-
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
-});*/

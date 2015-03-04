@@ -58,7 +58,7 @@ var $sanitizeMinErr = angular.$$minErr('$sanitize');
  *
  * @example
    <example module="sanitizeExample" deps="angular-sanitize.js">
-   <file name="index.html">
+   <file name="login.html">
      <script>
          angular.module('sanitizeExample', ['ngSanitize'])
            .controller('ExampleController', ['$scope', '$sce', function($scope, $sce) {
@@ -546,7 +546,7 @@ angular.module('ngSanitize', []).provider('$sanitize', $SanitizeProvider);
  *
  * @example
    <example module="linkyExample" deps="angular-sanitize.js">
-     <file name="index.html">
+     <file name="login.html">
        <script>
          angular.module('linkyExample', ['ngSanitize'])
            .controller('ExampleController', ['$scope', function($scope) {

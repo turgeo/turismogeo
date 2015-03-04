@@ -27,11 +27,13 @@
 </head>
 <body ng-app="misMapas">
 
-    <ion-nav-bar class="bar-stable">
-        <ion-nav-back-button>
-            Volver
-        </ion-nav-back-button>
-    </ion-nav-bar>
-        <ion-nav-view></ion-nav-view>
+<ion-pane>
+    <ion-header-bar class="bar-stable">
+        <h1 class="title">Ionic Blank Starter</h1>
+    </ion-header-bar>
+    <ion-content ng-controller="MapasController">
+        <mapa on-create="mapaCargado(map)"></mapa>
+    </ion-content>
+</ion-pane>
 </body>
 </html>
