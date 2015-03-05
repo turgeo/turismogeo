@@ -32,14 +32,16 @@ angular.module('controladores',[])
 
             });
 
+
         Usuarios.validarUsuario($scope.usuario).then(
             function(res){
                 $ionicLoading.hide();
                 if(res.length>0) {
                     localStorage.usuario = JSON.stringify(res[0]);
-                    /*$state.go("tab.blocs"); poner akí la pantalla de mapas*/
+                    $state.go("geoturismo.listado");
                 }
                 else{
+                    localStorage.setItem("usuario", "undefined");
                     $ionicPopup.alert({
                         template:'Credenciales incorrectas',
                         title: '¡Error!'
@@ -55,17 +57,26 @@ angular.module('controladores',[])
             });
     };
 
+        $scope.nuevoRegistro=function(){
+            $scope.usuario.email="";
+            $scope.usuario.password="";
+            $state.go("geoturismo.registro");
+        }
+
 
     $ionicPlatform.ready(function(){
         // navegador kompatible kn localstorage
         if(typeof(Storage) !== "undefined") {
             //si tiene datos, los pasamos a la vista
-            if(localStorage.usuario){
-                $scope.usuario=JSON.parse(localStorage.usuario);
-                //iniciarSesion();
-            } else {
-                //sino lo llenamos
-                localStorage.setItem("usuario", $scope.usuario);
+            if(localStorage.usuario !== "undefined" && localStorage.usuario !== undefined){
+                /*
+                $scope.usuario.email=JSON.parse(localStorage.usuario).Email;
+                $scope.usuario.password=JSON.parse(localStorage.usuario).Password;
+                */
+                $state.go("geoturismo.listado");
+            }
+            else {
+                ;
             }
 
         } else {
@@ -104,7 +115,8 @@ angular.module('controladores',[])
                     title: '¡Exito!'
                 });
 
-                $state.go("geoturimo.login");
+                localStorage.setItem("usuario", "undefined");
+                $state.go("geoturismo.login");
             }
             ,
             function(err){
@@ -119,3 +131,15 @@ angular.module('controladores',[])
     }
 })
 
+.controller('ListadoCtrl', function($scope,$http,$state,OfertasOcio) {
+    $scope.puntosInteres=[];
+
+    OfertasOcio.getOfertasOcio().then(
+        function(res){
+            $scope.puntosInteres=res;
+        },
+        function(err){
+            alert(err);
+        }
+    );
+})

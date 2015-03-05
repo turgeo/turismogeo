@@ -76,4 +76,38 @@ angular.module('servicios',[])
         return ($q.reject(resp.data.message));
     }
 
-});
+})
+
+
+.factory('OfertasOcio', function ($http, $q) {
+    var url = "https://turismociudadgeo.azure-mobile.net/tables/puntosinteres";
+
+    $http.defaults.headers.common = {
+        'X-ZUMO-APPLICATION': 'xcbHUQtJLDiIWhdvACLUNdWAMeAgRo89',
+        'Access-Control-Allow-Origin': '*'
+    };
+    return {
+        getOfertasOcio: function () {
+            //var query = "?$filter=ciudad eq '" + ciudad + "'";
+            var request = $http(
+                {
+                    //url: url + query,
+                    url: url,
+                    method: 'get'
+                });
+
+            return request.then(ok, err);
+        }
+    }
+    function ok(resp) {
+        return resp.data;
+
+    }
+
+    function err(resp) {
+        if (!angular.isObject(resp.data) || !resp.data.message) {
+            return ($q.reject("Error desconocido"));
+        }
+        return ($q.reject(resp.data.message));
+    }
+})
