@@ -8,6 +8,14 @@ angular.module('controladores',[])
 
                 function(pos){
 
+                    //var marker = new google.maps.Marker({
+                    //    position:  (pos.latitud,pos.longitud),
+                    //    map: map,
+                    //    title: nombreEventos[i],
+                    //    //icon: iconBase + '~/Images/Mapas/Usuario.png'
+                    //    icon: url_imagen
+                    //});
+
                     $scope.map.setCenter(new google.maps.LatLng(
                         pos.latitud,
                         pos.longitud));
@@ -134,6 +142,11 @@ angular.module('controladores',[])
 .controller('ListadoCtrl', function($scope,$http,$state,OfertasOcio) {
     $scope.puntosInteres=[];
 
+
+        $scope.goMapa=function(){
+            $state.go("geoturismo.mapa");
+
+        }
     OfertasOcio.getOfertasOcio().then(
         function(res){
             $scope.puntosInteres=res;

@@ -57,6 +57,16 @@ angular.module('misMapas',['ionic','controladores','servicios','directivas'])
         }
     })
 
+    .state('geoturismo.mapa', {
+        url: '/mapa',
+        views: {
+            'plantillaView': {
+                templateUrl: 'templates/mapa.html',
+                controller: 'MapasController'
+            }
+        }
+    })
+
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/geoturismo/login');

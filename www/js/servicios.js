@@ -39,6 +39,8 @@ angular.module('servicios',[])
         }
     })
 
+
+
 .factory('Usuarios', function ($http, $q) {
         var url="https://turismociudadgeo.azure-mobile.net/tables/usuarios";
         $http.defaults.headers.common={
