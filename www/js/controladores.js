@@ -1,5 +1,5 @@
 angular.module('controladores',[])
-    .controller('MapasController',function($scope,Geolocalizacion){
+    .controller('MapasController',function($scope,Geolocalizacion,OfertasOcio){
 
         $scope.mapaCargado=function(map){
             $scope.map=map;
@@ -7,20 +7,43 @@ angular.module('controladores',[])
             Geolocalizacion.getPosicionActual().then(
 
                 function(pos){
+
+                    OfertasOcio.getOfertasOcio().then(
+                        function(res){
+                            $scope.puntosInteres=res;
+
+                            for(i=0;i<$scope.puntosInteres.length;i++){
+                                var punto = new google.maps.Marker({
+                                    position: new google.maps.LatLng($scope.puntosInteres[i].longitud,$scope.puntosInteres[i].latitud),
+                                    map: map,
+                                    title: $scope.puntosInteres[i].nombre,
+                                    icon: $scope.puntosInteres[i].foto
+                                });
+                            }
+                        },
+                        function(err){
+                            alert(err);
+                        }
+                    );
+
                     $scope.map.setCenter(new google.maps.LatLng(
                         pos.latitud,
-                        pos.longitud));
+                        pos.longitud)
+                    );
 
-                    $scope.map.addMarker(new google.maps.Marker({
+                    var url_imagen ='http://'+ window.location.host+'/turismogeo/WWW/img/usuario.png';
+                    var p1 = new google.maps.Marker({
                         position: new google.maps.LatLng(pos.latitud,pos.longitud),
                         map: map,
-                        title: "Yo"
-                    }));
-
+                        title: "Yo",
+                        icon: url_imagen
+                    });
                 },
                 function (err) {
                     alert(err.message);
                 })
+
+
         };
     })
 
