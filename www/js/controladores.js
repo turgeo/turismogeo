@@ -10,16 +10,36 @@ angular.module('controladores',[])
 
                     OfertasOcio.getOfertasOcio().then(
                         function(res){
+                            var url_evento ='http://'+ window.location.host+'/turismogeo/WWW/img/evento.png';
                             $scope.puntosInteres=res;
 
+
+                            var  infowindow=[];
+                            var x=[];
+
                             for(i=0;i<$scope.puntosInteres.length;i++){
-                                var punto = new google.maps.Marker({
-                                    position: new google.maps.LatLng($scope.puntosInteres[i].longitud,$scope.puntosInteres[i].latitud),
+                                var contenidoWindow = $scope.puntosInteres[i].descripcion;
+
+                                infowindow[i] = new google.maps.InfoWindow({
+                                    content: contenidoWindow
+                                });
+
+
+                                x[i] = new google.maps.Marker({
+                                    position: new google.maps.LatLng
+                                        ($scope.puntosInteres[i].longitud,$scope.puntosInteres[i].latitud),
                                     map: map,
                                     title: $scope.puntosInteres[i].nombre,
-                                    icon: $scope.puntosInteres[i].foto
+                                    icon: url_evento
                                 });
+
+                                google.maps.event.addListener(x[i], 'click', function() {
+                                    infowindow[i].open(map,x[i]);
+                                });
+
                             }
+
+
                         },
                         function(err){
                             alert(err);
@@ -31,12 +51,22 @@ angular.module('controladores',[])
                         pos.longitud)
                     );
 
-                    var url_imagen ='http://'+ window.location.host+'/turismogeo/WWW/img/usuario.png';
-                    var p1 = new google.maps.Marker({
+                    var url_usuario ='http://'+ window.location.host+'/turismogeo/WWW/img/usuario.png';
+
+                    var info = "Usted se encuentra aquí";
+                    var infowindowUsuario = new google.maps.InfoWindow({
+                        content: info
+                    });
+
+                    var puntoUsuario = new google.maps.Marker({
                         position: new google.maps.LatLng(pos.latitud,pos.longitud),
                         map: map,
                         title: "Yo",
-                        icon: url_imagen
+                        icon: url_usuario
+                    });
+
+                    google.maps.event.addListener(puntoUsuario, 'click', function() {
+                        infowindowUsuario.open(map,puntoUsuario);
                     });
                 },
                 function (err) {

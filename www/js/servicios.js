@@ -11,7 +11,7 @@ angular.module('servicios',[])
 
                 if(navigator.geolocation){
 
-                    navigator.geolocation.getCurrentPosition(
+                    navigator.geolocation.watchPosition(
 
                         function(pos){
 
