@@ -61,12 +61,12 @@ angular.module('controladores',[])
                                 var marker = createMarker(point,$scope.puntosInteres[i].descripcion);
                             }
 
+                            //5_ PINTAMOS EL PUNTO DONDE ESTÁ SITUADO EL USUARIO
                             var info = "Usted se encuentra aquí";
                             var infowindowUsuario = new google.maps.InfoWindow({
-                                content: info
+                                //content: info
+                                content: "<div style='border: 1px solid deeppink;'>Hola soy un div<img src='"+url_evento+"'/></div>"
                             });
-
-                            //5_ PINTAMOS EL PUNTO DONDE ESTÁ SITUADO EL USUARIO
                             var puntoUsuario = new google.maps.Marker({
                                 position: new google.maps.LatLng(pos.latitud,pos.longitud),
                                 map: map,
