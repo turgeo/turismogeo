@@ -1,6 +1,6 @@
 angular.module('controladores',[])
     .controller('MapasController',function($scope,Geolocalizacion,OfertasOcio){
-
+        
         $scope.mapaCargado=function(map){
             $scope.map=map;
 
@@ -58,14 +58,22 @@ angular.module('controladores',[])
                             //4_ PINTAMOS LOS PUNTOS DE LAS OFERTAS DE OCIO
                             for(i=0;i<$scope.puntosInteres.length;i++){
                                 var point = new google.maps.LatLng($scope.puntosInteres[i].longitud,$scope.puntosInteres[i].latitud);
-                                var marker = createMarker(point,$scope.puntosInteres[i].descripcion);
+                                var contenidoInfoWindow='<div class="contenedor">'
+                                                            +'<span id="contenedorTitulo">Fuente de Cibeles</span>'
+                                                            +'<div class="subcontenedor">'
+                                                                +'<div><img src="'+$scope.puntosInteres[i].foto+'" /></div>'
+                                                                +'<div>'+$scope.puntosInteres[i].descripcion+'</div>'
+                                                                //+'<div>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.</div>'
+                                                            +'</div>'
+                                                        +'</div>';
+                                var marker = createMarker(point,contenidoInfoWindow);
                             }
 
                             //5_ PINTAMOS EL PUNTO DONDE ESTÁ SITUADO EL USUARIO
                             var info = "Usted se encuentra aquí";
                             var infowindowUsuario = new google.maps.InfoWindow({
                                 //content: info
-                                content: "<div style='border: 1px solid deeppink;'>Hola soy un div<img src='"+url_evento+"'/></div>"
+                                content: info
                             });
                             var puntoUsuario = new google.maps.Marker({
                                 position: new google.maps.LatLng(pos.latitud,pos.longitud),
@@ -87,6 +95,14 @@ angular.module('controladores',[])
                 function (err) {
                     alert(err.message);
                 })
+        };
+    })
+
+
+    .controller('PortadaCtrl',function($scope, $state){
+        $scope.urlFoto='http://'+ window.location.host+'/turismogeo/www/img/portada.jpeg';
+        $scope.empezar=function(){
+            $state.go("geoturismo.login");
         };
     })
 
