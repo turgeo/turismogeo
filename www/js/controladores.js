@@ -42,7 +42,6 @@ angular.module('controladores',[])
 
                                 //al hacer clic en el mapa, cerramos los popups
                                 google.maps.event.addListener(map, 'click', function() {
-                                    alert("Click mapa");
                                     if(popup!=undefined)
                                         popup.close();
                                 });
@@ -50,7 +49,6 @@ angular.module('controladores',[])
                                 //al hacer clic en un marker, se muestra su popup
                                 var infobox = new InfoBox(opcionesInfobox);
                                 google.maps.event.addListener(marker, 'click', function(){
-                                        alert("click");
                                         //si estuviese abierto otro popup, se cierra
                                         if(popup!=undefined)
                                             popup.close();
