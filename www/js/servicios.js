@@ -1,8 +1,18 @@
 angular.module('servicios',[])
 
+    .factory('Portada', function () {
+        var ciudad='';
+        return {
+            getCiudad: function () {
+                return ciudad;
+            },
+            setCiudad: function (valor) {
+                ciudad=valor;
+            }
+        }
+    })
+
     .factory('Geolocalizacion',function($q){
-
-
         return{
 
             getPosicionActual:function(){
@@ -89,12 +99,11 @@ angular.module('servicios',[])
         'Access-Control-Allow-Origin': '*'
     };
     return {
-        getOfertasOcio: function () {
-            //var query = "?$filter=ciudad eq '" + ciudad + "'";
+        getOfertasOcio: function (ciudad) {
+            var query = "?$filter=ciudad eq '" + ciudad + "'";
             var request = $http(
                 {
-                    //url: url + query,
-                    url: url,
+                    url: url + query,
                     method: 'get'
                 });
 
@@ -113,3 +122,36 @@ angular.module('servicios',[])
         return ($q.reject(resp.data.message));
     }
 })
+
+    .factory('OfertaOcioDetalle', function ($http, $q) {
+        var url='https://turismociudadgeo.azure-mobile.net/tables/puntosInteres'
+
+        $http.defaults.headers.common = {
+            'X-ZUMO-APPLICATION': 'xcbHUQtJLDiIWhdvACLUNdWAMeAgRo89',
+            'Access-Control-Allow-Origin': '*'
+        };
+        return {
+            dameDetalleOferta: function (id) {
+                var query = "?$filter=id eq '" + id+"'";
+                var request = $http(
+                    {
+                        url: url + query,
+                        method: 'get'
+                    });
+
+                return request.then(ok, err);
+            }
+        }
+        function ok(resp) {
+            return resp.data[0];
+
+        }
+
+        function err(resp) {
+            if (!angular.isObject(resp.data) || !resp.data.message) {
+                return ($q.reject("Error desconocido"));
+            }
+            return ($q.reject(resp.data.message));
+        }
+
+    })

@@ -14,7 +14,8 @@ mapa{
 }*/
 
 /*color de fondo de pantalla*/
-ion-view, ion-content, ion-list, ion-item{
+
+ion-view, ion-content, ion-list{
     background-color:#B3CB65 !important;
 }
 
@@ -28,6 +29,11 @@ ion-header-bar>div{
     font-size:1.1em !important;
     /*font-weight: bold !important;*/
 }
+/*color de fondo del listado de ofertas*/
+ion-item, .item-content{
+    background-color: #B3CB65 !important;
+}
+
 /*texto del listado de ofertas*/
 h2,h3{
     color:#000 !important;
@@ -46,19 +52,33 @@ button{
 }
 
 /*CSS PARA LOS INFOWINDOW DEL MAPA*/
- #contenedorTitulo{
-     display:inline-block;
-     width:325px;
-     margin-left:10px;
-     margin-top:10px;
-     font-size: 1.5em;
- }
+.contenedorTitulo{
+    display:inline-block;
+    width:325px;
+    margin-left:10px;
+    margin-top:10px;
+    font-size: 1.5em;
+}
 
 .contenedor{
     border:0px solid #000;
-    height:305px;
-    width:375px;
+    height:302px;
+    width:372px;
     /*background-color: #efefef;*/
+
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+.contenedorMini{
+    border:0px solid #000;
+    height:40px;
+    width:117px;
+    /*background-color: #efefef;*/
+
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
 .subcontenedor{
     margin-top:5px;
@@ -84,4 +104,27 @@ button{
 img{
     width:120px;
     max-height: 250px;
+}
+
+/*ocultar la X de cerrar el infobox*/
+img[src="http://www.google.com/intl/en_us/mapfiles/close.gif"] {
+    display: none;
+}
+
+
+/*CSS PARA LA PANTALLA DE DETALLE DE LA OFERTA*/
+#fotoDetalle{
+    /*border:1px solid #000;*/
+    width:100%;
+    max-height: 500px;
+
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+textarea{
+    background-color: #B3CB65 !important;
+}
+#contenedorDetalle{
+    padding: 0 13px 0 6px;
 }

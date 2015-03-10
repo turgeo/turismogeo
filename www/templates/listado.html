@@ -1,8 +1,10 @@
 <ion-view view-title="Oferta de ocio">
     <ion-content>
         <ion-list>
-            <ion-item class="item-avatar" ng-repeat="item in puntosInteres"
-                      type="item-text-wrap">
+            <ion-item class="item-avatar"
+                      ng-repeat="item in puntosInteres"
+                      type="item-text-wrap"
+                      href="#/geoturismo/detalle/{{item.Id}}">
                 <img ng-src="{{item.foto}}">
                 <h2>{{item.nombre}}</h2>
                 <h3>{{item.descripcion}}</h3>
