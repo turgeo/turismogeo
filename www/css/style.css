@@ -128,3 +128,15 @@ textarea{
 #contenedorDetalle{
     padding: 0 13px 0 6px;
 }
+
+/*css para el logo*/
+#contenedorLogo{
+    z-index: 100;
+    position: relative;
+    float: right;
+    margin-right: 10px;
+}
+#logo{
+    width:52px;
+    height: 52px;
+}

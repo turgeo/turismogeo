@@ -2,11 +2,12 @@
 <widget id="com.ionicframework.turismogeo135883" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>turismogeo</name>
   <description>
-        An Ionic Framework and Cordova project.
-    </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
-    </author>
+    Una aplicación del turismo en España que podrá ser ampliable a todo el mundo,
+      donde podrás geolocalizarte y encontrar los puntos de interés más cercanos a tu posición.
+  </description>
+  <author email="huronpardo@gmail.com" href="http://ionicframework.com/">
+      Virginia Pereiro Rubio, Tubal Lara García, Miguel Á. Martín González
+  </author>
   <content src="index.html"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
